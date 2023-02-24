@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>JSONata test</title>
+    <script src="https://cdn.jsdelivr.net/npm/jsonata/jsonata.min.js"></script>
+    <script>
+		async function jugadores() {
+			var players = await fetch("https://www.futmondo.com/5/league/championshipplayers", {
+			  "headers": {
+				"accept": "*/*",
+				"accept-language": "es-ES,es;q=0.9,en;q=0.8",
+				"cache-control": "no-cache",
+				"content-type": "application/json",
+				"referer": "https://www.futmondo.com/index",
+				"pragma": "no-cache",
+				"sec-ch-ua": "\"Chromium\";v=\"110\", \"Not A(Brand\";v=\"24\", \"Google Chrome\";v=\"110\"",
+				"sec-ch-ua-mobile": "?0",
+				"sec-ch-ua-platform": "\"Windows\"",
+				"sec-fetch-dest": "empty",
+				"sec-fetch-mode": "cors",
+				"sec-fetch-site": "same-origin",
+				"cookie": "_ga=GA1.2.1916533750.1677228212; _gid=GA1.2.917192492.1677228212; _gat=1; _fbp=fb.1.1677228211729.44789048; __qca=P0-1553972469-1677228211637; connect.sid=s%3AcrLibZy3hEDdROZE31BgxVGuKaAROOe4.NwvF1UQmnsfK27nUpBOV%2F6MyrTAXZH%2BQGZt6lFVa%2BU0; i18next=es; __gads=ID=c3d10ccd1ddf4b0a:T=1677228232:S=ALNI_MZuNJR8e825g5vWf8CiV3aZXBnWBQ; __gpi=UID=00000bde47835eec:T=1677228232:RT=1677228232:S=ALNI_MYYf8GCu7CF0AkgjxPK2Ekm4V9JIg"
+			  },
+			  "referrer": "https://www.futmondo.com/index",
+			  "referrerPolicy": "strict-origin-when-cross-origin",
+			  "body": "{\"header\":{},\"query\":{\"championshipId\":\"5b5ef56c2fcb5a59581b5cd4\"},\"answer\":{}}",
+			  "method": "POST",
+			  "mode": "cors",
+			  "credentials": "include"
+			});
+			document.getElementById('jugadores').innerHTML = players;
+		}
+		async function greeting() {
+			var json = JSON.parse(document.getElementById('json').value);
+			var result = await jsonata('"Hello, " & name').evaluate(json);
+			document.getElementById('greeting').innerHTML = result;
+		}
+		jugadores();
+    </script>
+  </head>
+  <body>
+    <textarea id="json">{ "name": "Wilbur" }</textarea>
+    <button onclick="greeting()">Click me</button>
+    <p id="greeting"></p>
+	<h1>------</h1>
+	<p id="jugadores"></p>
+  </body>
+</html>
